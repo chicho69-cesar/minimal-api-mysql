@@ -1,7 +1,7 @@
 create database minimal_api;
 use minimal_api;
 
-create table user (
+create table users (
     id int not null auto_increment,
     firstname varchar(50),
     lastname varchar(100),
@@ -10,7 +10,10 @@ create table user (
     primary key(id)
 );
 
-insert into user(firstname, lastname, phone, email) 
+insert into users(firstname, lastname, phone, email) 
 values("Cesar", "Villalobos Olmos", "3461005286", "cesar-09@hotmail.com");
 
-select * from user;
+insert into users(firstname, lastname, phone, email) 
+values("Lizhet", "Sandoval Vallejo", "3461093552", "lichita11@hotmail.com");
+
+select * from users;
