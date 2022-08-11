@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using MinimalApis.Controllers;
 using MinimalApis.Data;
 using MinimalApis.Models;
@@ -8,6 +9,9 @@ string CORS = "My CORS";
 ApiContext context = new(builder.Configuration.GetConnectionString("MySQLConnection"));
 UsersController controller = new(context);
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 builder.Services.AddCors(options => {
     options.AddPolicy(name: CORS, builderCors => {
         builderCors.SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost")
@@ -15,9 +19,15 @@ builder.Services.AddCors(options => {
     });
 });
 
+/*builder.Services.AddDbContext<ApiContext>(options => {
+    options.UseMySQL(builder.Configuration.GetConnectionString("MySQLConnection"));
+});*/
+
 var app = builder.Build();
 
 app.UseCors(CORS);
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.MapGet("/", () => "Hello World!");
 
